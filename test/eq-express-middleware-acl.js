@@ -34,6 +34,7 @@ describe('express-middleware-acl', function () {
                 expect(instance.constructor.name).to.be('ExpressMiddlewareACL');
                 expect(instance.list).to.have.length(1);
                 expect(instance.options).to.eql({});
+                expect(instance.policy).to.be('deny');
             });
 
             it('Without middleware', function () {
@@ -41,14 +42,16 @@ describe('express-middleware-acl', function () {
 
                 expect(instance.constructor.name).to.be('ExpressMiddlewareACL');
                 expect(instance.options).to.eql({});
+                expect(instance.policy).to.be('deny');
             });
 
             it('Without options', function () {
-                const options = {test: true},
+                const options = {policy: 'allow'},
                     instance = express_middleware_acl(null, options);
 
                 expect(instance.constructor.name).to.be('ExpressMiddlewareACL');
                 expect(instance.options).to.eql(options);
+                expect(instance.policy).to.be('allow');
             });
         });
     });
@@ -178,21 +181,41 @@ describe('express-middleware-acl', function () {
             });
         });
 
-        it('Should pass all middleware', function (done) {
-            let count = 0;
-            const test = function (req, res, next) {
-                    count = count + 1;
+        describe('Should pass all middleware', function () {
+            it('Policy allow', function (done) {
+                let count = 0;
+                const test = function (req, res, next) {
+                        count = count + 1;
 
-                    next();
-                },
-                instance = express_middleware_acl([test, test, test, test, test]),
-                middleware = instance.middleware();
+                        next();
+                    },
+                    instance = express_middleware_acl([test, test, test, test, test], {policy: 'allow'}),
+                    middleware = instance.middleware();
 
-            middleware({}, {}, function (result) {
-                expect(count).to.be(5);
-                expect(result).to.be(undefined);
+                middleware({}, {}, function (result) {
+                    expect(count).to.be(5);
+                    expect(result).to.be(undefined);
 
-                done();
+                    done();
+                });
+            });
+
+            it('Policy deny', function (done) {
+                let count = 0;
+                const test = function (req, res, next) {
+                        count = count + 1;
+
+                        next();
+                    },
+                    instance = express_middleware_acl([test, test, test, test, test], {policy: 'deny'}),
+                    middleware = instance.middleware();
+
+                middleware({}, {}, function (result) {
+                    expect(count).to.be(5);
+                    expect(result.message).to.be('Forbidden');
+
+                    done();
+                });
             });
         });
     });

@@ -1,6 +1,6 @@
 {
     "name": "eq-express-middleware-acl",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Access control middleware for Express",
     "keywords": ["eq", "express", "middleware", "acl", "access control"],
     "homepage": "https://github.com/eq-inc/eq-express-middleware-acl",

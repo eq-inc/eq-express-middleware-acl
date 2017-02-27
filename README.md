@@ -4,7 +4,7 @@ Access control middleware for Express
 
 ## Class: ExpressMiddlewareACL
 ### ExpressMiddlewareACL(middleware)
-- ```middleware``` <Array>    Array of middleware function
+- ```middleware``` &lt;Array&gt;    Array of middleware function
 
 #### Example
 ```javascript
@@ -17,9 +17,11 @@ const express_middleware_acl = require('eq-express-middleware-acl'),
 ```
 
 
-### Class Method: ExpressMiddlewareACL.set(middleware)
+### Class Method: ExpressMiddlewareACL.set(middleware[, options])
 Set middleware list to ```middleware``` (Overwrite current list)
-- ```middleware``` <Array>    Array of middleware function
+- ```middleware``` &lt;Array&gt;    Array of middleware function
+- ```options``` &lt;Object&gt;
+    - ```policy``` &lt;string&gt;  ```"deny"``` or ```"allow"``` (Default: ```"deny"```)
 
 #### Example
 ```javascript
@@ -36,7 +38,7 @@ acl.set([]); // Clear middleware list
 
 ### Class Method: ExpressMiddlewareACL.add(middleware)
 Add ```middleware``` to end of middleware list
-- ```middleware``` <Array>    Array of middleware function
+- ```middleware``` &lt;Array&gt;    Array of middleware function
 
 #### Example
 ```javascript
@@ -52,7 +54,7 @@ acl.add([middleware]);
 
 ### Class Method: ExpressMiddlewareACL.remove(index)
 Remove middleware by index
-- ```index``` <Number>    Index of middleware
+- ```index``` &lt;Number&gt;    Index of middleware
 
 #### Example
 ```javascript
