@@ -36,7 +36,7 @@ acl.set([]); // Clear middleware list
 ```
 
 
-### Class Method: ExpressMiddlewareACL.add(middleware)
+### Class Method: ExpressMiddlewareACL.use(middleware)
 Add ```middleware``` to end of middleware list
 - ```middleware``` &lt;Array&gt;    Array of middleware function
 
@@ -48,7 +48,7 @@ function middleware(req, res, next) {
 
 const express_middleware_acl = require('eq-express-middleware-acl'),
     acl = express_middleware_acl();
-acl.add([middleware]);
+acl.use([middleware]);
 ```
 
 

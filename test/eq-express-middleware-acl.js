@@ -96,13 +96,13 @@ describe('express-middleware-acl', function () {
         });
     });
 
-    describe('add', function () {
-        describe('Should add middleware', function () {
+    describe('use', function () {
+        describe('Should use middleware', function () {
             it('Single', function () {
                 const instance = express_middleware_acl();
 
                 expect(instance.list).to.have.length(0);
-                instance.add(allow);
+                instance.use(allow);
                 expect(instance.list).to.have.length(1);
             });
 
@@ -110,7 +110,7 @@ describe('express-middleware-acl', function () {
                 const instance = express_middleware_acl();
 
                 expect(instance.list).to.have.length(0);
-                instance.add([allow, deny]);
+                instance.use([allow, deny]);
                 expect(instance.list).to.have.length(2);
             });
         });
